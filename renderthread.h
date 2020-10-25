@@ -31,14 +31,14 @@ private:
     RenderThread &operator =(const RenderThread &&) = delete;
 
 private:
-    bool m_running;
+    bool m_running = true;
 
-    int m_width;
-    int m_height;
+    int m_width = 100;
+    int m_height = 100;
     QMutex m_mutex;
 
     QOpenGLContext *m_mainContext;
-    QOpenGLContext *m_renderContext;
+    QOpenGLContext *m_renderContext = nullptr;
     QSurface *m_surface;
 };
 

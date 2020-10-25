@@ -30,15 +30,19 @@ private:
     Renderer &operator =(const Renderer &&) = delete;
 
 private:
-    int m_width;
-    int m_height;
-    bool m_sizeChanged;
+    int m_width = 0;
+    int m_height = 0;
+    int m_viewportX = 0;
+    int m_viewportY = 0;
+    int m_viewportWidth = 0;
+    int m_viewportHeight = 0;
+    bool m_sizeChanged = true;
 
-    unsigned m_vao;
-    unsigned m_vbo;
-    unsigned m_fbo;
-    unsigned m_rbo;
-    unsigned m_texture;
+    unsigned m_vao = 0;
+    unsigned m_vbo = 0;
+    unsigned m_fbo = 0;
+    unsigned m_rbo = 0;
+    unsigned m_texture = 0;
 
     std::unique_ptr<QOpenGLShaderProgram> m_program;
     std::unique_ptr<Sierpinski> m_sierpinski;

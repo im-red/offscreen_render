@@ -14,12 +14,10 @@ TextureBuffer::TextureBuffer()
     : m_ready(false)
     , m_texture(0)
 {
-
 }
 
 TextureBuffer::~TextureBuffer()
 {
-
 }
 
 void TextureBuffer::createTexture(QOpenGLContext *context)
@@ -36,7 +34,7 @@ void TextureBuffer::deleteTexture(QOpenGLContext *context)
 // called in render thread
 void TextureBuffer::updateTexture(QOpenGLContext *context, int width, int height)
 {
-    Timer t("ImageBuffer::updateTexture");
+    RAIITimer t("ImageBuffer::updateTexture");
     QMutexLocker lock(&m_mutex);
 
     auto f = context->functions();
@@ -51,7 +49,7 @@ void TextureBuffer::updateTexture(QOpenGLContext *context, int width, int height
 // called in main thread
 void TextureBuffer::drawTexture(QOpenGLContext *context, int vertextCount)
 {
-    Timer t("ImageBuffer::drawTexture");
+    RAIITimer t("ImageBuffer::drawTexture");
     QMutexLocker lock(&m_mutex);
 
     auto f = context->functions();

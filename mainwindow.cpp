@@ -15,9 +15,6 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     ui->setupUi(this);
 
-    m_glWidget = new GLWidget(this);
-    ui->centralWidget->layout()->addWidget(m_glWidget);
-
     startTimer(0);
 }
 
@@ -28,7 +25,8 @@ MainWindow::~MainWindow()
 
 void MainWindow::timerEvent(QTimerEvent *)
 {
-    m_glWidget->update();
+    ui->openGLWidget->update();
+
     static int i = 0;
     i++;
 
@@ -39,9 +37,4 @@ void MainWindow::timerEvent(QTimerEvent *)
         qDebug() << fps;
         statusBar()->showMessage(fps);
     }
-}
-
-void MainWindow::resizeEvent(QResizeEvent *)
-{
-
 }

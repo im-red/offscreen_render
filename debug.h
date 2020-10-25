@@ -6,17 +6,17 @@
 #include <QDebug>
 #include <QElapsedTimer>
 
-class Timer
+class RAIITimer
 {
 public:
-    Timer(const std::string &tag)
+    explicit RAIITimer(const std::string &tag)
         : m_tag(tag)
         , m_printed(false)
     {
         m_timer.start();
         qDebug() << m_tag.c_str() << "begin";
     }
-    ~Timer()
+    ~RAIITimer()
     {
         stop();
     }
@@ -28,7 +28,7 @@ public:
         }
         m_printed = true;
         auto ns = m_timer.nsecsElapsed();
-        float ms = ns / 1000000.0;
+        auto ms = ns / 1000000.0;
         qDebug() << m_tag.c_str() << "cost" << ms << "ms";
     }
 

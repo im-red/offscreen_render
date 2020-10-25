@@ -6,7 +6,7 @@
 class Sierpinski
 {
 public:
-    Sierpinski(int iterationCount);
+    explicit Sierpinski(int iterationCount);
 
     float *data() { return m_vertices.data(); }
     size_t size() const { return m_vertices.size(); }

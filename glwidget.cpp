@@ -26,14 +26,11 @@ namespace
 
 GLWidget::GLWidget(QWidget *parent)
     : QOpenGLWidget(parent)
-    , m_vao(0)
-    , m_vbo(0)
 {
 }
 
 GLWidget::~GLWidget()
 {
-
 }
 
 void GLWidget::initializeGL()
@@ -78,8 +75,8 @@ void GLWidget::initializeGL()
     glBindBuffer(GL_ARRAY_BUFFER, m_vbo);
     glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
 
-    glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 4 * sizeof(float), (void *)(0));
-    glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 4 * sizeof(float), (void *)(2 * sizeof(float)));
+    glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 4 * sizeof(float), reinterpret_cast<void *>(0));
+    glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 4 * sizeof(float), reinterpret_cast<void *>(2 * sizeof(float)));
     glEnableVertexAttribArray(0);
     glEnableVertexAttribArray(1);
 
@@ -90,29 +87,26 @@ void GLWidget::initializeGL()
 
 void GLWidget::paintGL()
 {
-    Timer t("GLWidget::paintGL");
-    glEnable(GL_TEXTURE_2D);
+    RAIITimer t("GLWidget::paintGL");
+
+    glViewport(0, 0, width(), height());
 
     m_program->bind();
 
     glBindVertexArray(m_vao);
-
     if (TextureBuffer::instance()->ready())
     {
         TextureBuffer::instance()->drawTexture(QOpenGLContext::currentContext(), sizeof(vertices) / sizeof(float) / 4);
     }
-
     glBindVertexArray(0);
 
     m_program->release();
-    glDisable(GL_TEXTURE_2D);
 
     FpsCounter::instance()->frame(FpsCounter::Display);
 }
 
 void GLWidget::resizeGL(int w, int h)
 {
-    glViewport(0, 0, w, h);
     m_thread->setNewSize(w, h);
 }
 

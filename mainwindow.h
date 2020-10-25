@@ -19,16 +19,14 @@ class MainWindow : public QMainWindow
 
 public:
     explicit MainWindow(QWidget *parent = nullptr);
-    ~MainWindow();
+    ~MainWindow() override;
 
 protected:
     void timerEvent(QTimerEvent *) override;
-    void resizeEvent(QResizeEvent *) override;
 
 private:
     Ui::MainWindow *ui;
     RenderThread *m_thread;
-    GLWidget *m_glWidget;
 };
 
 #endif // MAINWINDOW_H

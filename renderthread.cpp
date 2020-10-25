@@ -10,9 +10,6 @@
 
 RenderThread::RenderThread(QSurface *surface, QOpenGLContext *mainContext, QObject *parent)
     : QThread(parent)
-    , m_running(true)
-    , m_width(100)
-    , m_height(100)
     , m_mainContext(mainContext)
     , m_surface(surface)
 {
@@ -26,7 +23,6 @@ RenderThread::RenderThread(QSurface *surface, QOpenGLContext *mainContext, QObje
 RenderThread::~RenderThread()
 {
     m_running = false;
-
     wait();
 }
 

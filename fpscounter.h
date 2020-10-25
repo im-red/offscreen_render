@@ -11,7 +11,7 @@ public:
     {
         Render = 0,
         Display,
-        TypeNum
+        TypeCount
     };
 
 public:
@@ -30,9 +30,9 @@ private:
     FpsCounter &operator =(const FpsCounter &&) = delete;
 
 private:
-    std::string m_title[TypeNum];
-    std::atomic<int> m_interval[TypeNum];   // in microsecond
-    int64_t m_lastTick[TypeNum];            // in microsecond
+    std::string m_title[TypeCount];
+    std::atomic<int> m_frameCount[TypeCount];
+    int64_t m_lastTick[TypeCount];            // in microsecond
 };
 
 #endif // FPSCOUNTER_H
